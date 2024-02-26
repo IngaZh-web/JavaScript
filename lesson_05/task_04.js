@@ -1,17 +1,27 @@
 "use strict";
 
-const calculate = (totalPrice, quantityOfGoods, promoCode) => {
+const discount_3 = 0.03;
+const discount_15 = 0.15;
+const discount_30 = 0.3;
+const discount_M = "METHED";
+const discount_G = "G3H2Z1";
+
+const calculate = (totalAmount, quantityOfGoods, promoCode) => {
   if (quantityOfGoods > 10) {
-    totalPrice === totalPrice - totalPrice * 0.03;
-  } else if (totalPrice > 30000) {
-    totalPrice === totalPrice - totalPrice * 0.15;
-  } else if (promoCode === "METHED") {
-    totalPrice === totalPrice - totalPrice * 0.1;
-  } else if (promoCode === "G3H2Z1") {
-    totalPrice -
-      totalPrice * 0.03 -
-      (totalPrice - totalPrice * 0.15) -
-      totalPrice * 0.1 >
-      2000;
+    totalAmount = totalAmount - totalAmount * discount_3;
+    console.log(totalAmount);
+  }
+  if (totalAmount >= 30000) {
+    totalAmount = totalAmount - (totalAmount - 30000) * discount_15;
+    console.log(totalAmount);
+  }
+  if (promoCode === discount_M) {
+    totalAmount = totalAmount - totalAmount * 0.1;
+    console.log(totalAmount);
+  }
+  if (promoCode === discount_G && totalAmount > 2000) {
+    totalAmount = totalAmount - 500;
+    console.log(totalAmount);
   }
 };
+calculate(35000, 12, discount_M);

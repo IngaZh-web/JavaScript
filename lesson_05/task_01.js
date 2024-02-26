@@ -1,8 +1,10 @@
 "use strict";
 
-const euro = (dollar, coeff) => {
-  return dollar * coeff;
-};
-const result = euro(64, 1.2);
-console.log('result: ', result);
 
+const converter = (costInEuro) => {
+	const dollar = 64;
+	const euro = 1.2 * dollar;
+
+	return costInEuro * euro
+}
+console.log(converter(250));

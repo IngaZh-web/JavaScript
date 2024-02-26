@@ -1,12 +1,18 @@
 'use strict'
 
-const item_3 = prompt("Наименование товара");
-const count_3 = Number(prompt(77));
-if (count_3 !== count_3) {
-  alert("Вы ввели неверное значение");
-}
-const category_3 = prompt("Вы ввели некорректные данные");
-const price_3 = Number(prompt(110));
-if (price_3 !== price_3) {
-  alert("Вы ввели некорректные данные");
-}
+
+	const item = prompt("Наименование товара");
+	const count = Number(prompt("Введите колличество товара", '77'));
+	const category = prompt("Категория товара");
+	const price = Number(prompt("Цена товара"));
+
+	if (isNaN(count) || isNaN(price)) {
+		alert("Вы ввели некорректные данные.");
+	}
+
+
+	console.log(`На складе ${count} единиц "${category}", на сумму: ${count * price} руб.`)
+
+
+
+

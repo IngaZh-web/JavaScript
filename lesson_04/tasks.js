@@ -1,33 +1,30 @@
 "use strict";
 
+// task # 2
 const rain = Math.round(Math.random());
-console.log("rain: ", rain);
+
 if (rain === 1) {
-  alert("Пошёл дождь. Возьмите зонт");
-}
-if (rain === 0) {
+  alert("Пошёл дождь. Возьмите зонт!");
+} else {
   alert("Дождя нет!");
 }
 
-// task № 3
+//task № 3
 const minScore = 265;
 
-const mathScore = 85;
-const langScore = 75;
-const informaticsScore = 95;
-
+const mathScore = +prompt("Ввведите результат по математике");
+const langScore = +prompt("Введите результат по русскому языку");
+const informaticsScore = +prompt("Введите результат по информатике");
 const totalScore = mathScore + langScore + informaticsScore;
-console.log('totalScore: ', totalScore);
+if(totalScore >= minScore) {
+	console.log("Поздравляю, вы поступили на бюджет!");
+}
 
-if (totalScore >= minScore) {
-	alert ('Поздравляю, вы поступили на бюджет!');
-} else alert ('Ждём вас в следующем году.');
 
 
 //task № 4
-const withdraw = prompt("Какую сумму вы хотите снять?");
-const enteredAmount = Number();
-if (enteredAmount !== 100) {
-  alert("Введите сумму, эквивалентную 100")
-} 
-
+const minSum = 100;
+const withdraw = +prompt("Какую сумму вы хотите снять?");
+if (withdraw % minSum === 0) {
+  console.log(`Вы хотите снять ${withdraw} руб.`);
+}
