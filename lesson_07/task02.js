@@ -5,8 +5,8 @@ const getAvarageValue = () => {
   let sum = 0;
   for (let i = 0; i < allСashbox.length; i++) {
     sum += allСashbox[i];
-    let avarage = Math.ceil(sum / allСashbox.length);
     console.log("avarage: ", avarage);
   }
+	let avarage = Math.ceil(sum / allСashbox.length);
 };
 getAvarageValue();
