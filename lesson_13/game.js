@@ -1,94 +1,66 @@
-"use strict";
-
+'use strict';
 (() => {
-  const rpsArray = ["rock", "paper", "scissors"];
+  // создаём функцию для определения случайного числа
+  const getRandomIntInclusive = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
-  const game = () => {
-    const result = {
-      computer: 0,
-      player: 0,
-      tie: 0,
-    };
+  const choices = ['камень', 'ножницы', 'бумага'];
 
-		const decidedNotToPlay = () => {
- 		 alert("I guess you changed your mind. Maybe next time.");
-		};	
+  const game = (userScore = 0, compScore = 0) => {
+    // запрос у пользователя
+    const userChoice = prompt('Введите \'камень\', \'ножницы\' или \'бумага\'.')
+      .toLowerCase()
+      .trim();
 
-    const getComputerChoice = (rpsArray) => {
-      const randomNumber = Math.floor(Math.random() * 3);
-      return rpsArray[randomNumber];
-    };
+    // Перезапуск ввода, если введен неправильный выбор
+    if (!choices.includes(userChoice)) {
+      alert(
+        'Неправильный ввод! Пожалуйста, введите \'камень\', \'ножницы\' или \'бумага\'.',
+      );
+      return game(userScore, compScore); // перезапуск игры, если ввод неправильный
+    }
 
-		const getPlayerChoice = () => {
-      return prompt("Please enter rock, paper, or scissors.");
-    };
+    // Выбор компьютера
+    const randomIndex = getRandomIntInclusive(0, choices.length - 1);
+    const computerChoice = choices[randomIndex];
+    console.log('computerChoice: ', computerChoice);
 
-		const getChoice = (playerChoice) => {
-			 if (playerChoice || playerChoice === '') {
-      return playerChoice.trim().toLowerCase();
-      } else  {
-       alert("You didn't enter rock, paper, or scissors.");
-       }
-		}
+    // Сравнение выборов и вывод результата
+    if (userChoice === computerChoice) {
+      alert('Ничья!');
+    } else if (
+      (userChoice === 'камень' && computerChoice === 'ножницы') ||
+      (userChoice === 'бумага' && computerChoice === 'камень') ||
+      (userChoice === 'ножницы' && computerChoice === 'бумага')
+    ) {
+      alert(
+        `Компьютер выбрал: ${computerChoice}.\nВы выбрали: ${userChoice}\nПоздравляем, вы выиграли!`,
+      );
+      userScore++; // Увеличиваем счет пользователя
+    } else {
+      alert(
+        `Компьютер выбрал: ${computerChoice}.\nВы выбрали: ${userChoice}\nВы проиграли!`,
+      );
+      compScore++; // Увеличиваем счет компьютера
+    }
 
-		const initGame = () => {
-      const startGame = confirm("Shall we play rock, paper, or scissors?");
-      startGame ? getChoice : decidedNotToPlay();
-    };
+    // Запрашиваем, хочет ли пользователь сыграть еще раз
+    const playAgain = confirm(
+      `Ваш счет: ${userScore}.\nСчет компьютера: ${compScore}.\nХотите сыграть еще раз?`);
 
-    const determineWinner = (player, computer) => {
-      if (player === computer) {
-        alert(`Player: ${player}\nComputer: ${computer}\nTie game!`);
-      } else if (
-        (player === "rock" && computer === "paper") ||
-        (player === "paper" && computer === "scissors") ||
-        (player === "scissors" && computer === "rock")
-      ) {
-				result.player;
-        result.computer++;
+    if (playAgain === false) {
+      // Если пользователь нажал "отмена", запрашиваем дополнительное подтверждение
+      const confirmExit = confirm('Вы точно хотите выйти?');
+      if (confirmExit) {
         alert(
-          `Player: ${player}\nComputer: ${computer}\nComputer wins!\nPl.: ${result.player}\nComp.: ${result.computer}`
-        );
+          `Игра закончена!\nВаш итоговый счет: ${userScore},\nСчет компьютера: ${compScore}`);
       } else {
-        result.player++;
-        result.computer;
-        alert(
-          `Player: ${player}\nComputer: ${computer}\nPlayer wins!\nPl.: ${result.player}\nComp.: ${result.computer}`
-        );
+        return game(userScore, compScore); // Рекурсивный вызов с обновленными счетами
       }
-    };
-
-    const askToPlayAgain = (start) => {
-      const answer = confirm("Play Again?");
-      if (answer) {
-        start();
-      } else {
-        alert(`Player won ${result.player} times.\nComputer won ${result.computer} times.`);
-      }
-    };
-
-    return function start() {
-			initGame();
-      // const ask = confirm('lan');
-      // if (ask === "EN") {	
-			
-			const playerChoice = getPlayerChoice();
-      const computerChoice = getComputerChoice(rpsArray);
-      const check = determineWinner(playerChoice, computerChoice);
-			askToPlayAgain(start);	
-
-      console.log(check);
-      result[check]++;
-      console.log(result);
-      console.log(playerChoice);
-      console.log(computerChoice);
-      // }
-    };
+    } else {
+      return game(userScore, compScore); // Рекурсивный вызов с обновленными счетами
+    }
   };
 
-  window.rps = game;
+  // Запуск игры
+  window.game = game;
 })();
-
-const play = window.rps();
-play();
-
